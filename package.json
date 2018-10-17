@@ -19,10 +19,11 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "jasmine": "^3.2.0",
-    "morgan": "^1.9.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "ws": "^6.1.0"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
@@ -31,6 +32,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
