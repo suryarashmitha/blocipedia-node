@@ -8,6 +8,7 @@ module.exports = {
              if(id && id !=0){
                 req.user = {
                     "id": id,
+                     "username": username,
                     "email": email,
                     "role": role
                 };
@@ -22,4 +23,4 @@ module.exports = {
          app.use(middleware)
         app.get('auth/fake', route)
     }
-} 
+}

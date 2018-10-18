@@ -16,14 +16,24 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "standard"
     }
   }, {});
   User.associate = function(models) {
-    User.hasMany(models.Wiki, {
-      foreignKey: "userId",
-      as: "posts"
-    });
-
-  };
-  return User;
+   User.hasMany(models.Wiki, {
+     foreignKey: "userId",
+     as: "wikis"
+   })
+ };
+ User.prototype.hasPremium = function() {
+   return this.role === "premium";
+ };
+ User.prototype.isAdmin = function() {
+   return this.role === "admin";
+ };
+ return User;
 };
