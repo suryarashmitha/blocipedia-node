@@ -1,20 +1,22 @@
 const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
-const sgMail = require("@sendgrid/mail");
+//const sgMail = require("@sendgrid/mail");
 
  module.exports = {
    signUp(req, res, next) {
  		res.render('users/sign_up', {title: "SignUp"});
  	},
   create(req, res, next) {
+    //console.log(req.body);
     let newUser = {
-      name: req.body.name,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       passwordConfirmation: req.body.passwordConfirmation
     };
      userQueries.createUser(newUser, (err, user) => {
       if(err) {
+        //console.log(err);
         req.flash("error", err);
         res.redirect("/users/sign_up");
       } else {
