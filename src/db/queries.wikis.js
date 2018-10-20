@@ -1,6 +1,6 @@
 const Wiki = require("./models").Wiki;
 const User = require("./models").User;
-const Authorizer = require("../policies/application");
+const Authorizer = require("../policies/wiki");
 
 module.exports = {
 
@@ -66,20 +66,19 @@ module.exports = {
 
   },
 
-  updateWiki(id, updatedWiki, callback){
+  updateWiki(req, updatedWiki, callback){
         return Wiki.findById(req.params.id)
         .then((wiki) => {
           if(!wiki){
             return callback("Wiki not found");
           }
           const authorized = new Authorizer(req.user, wiki).update();
-
                   if(authorized) {
-
+                    updatedWiki.private = (updatedWiki.private && updatedWiki.private == 'on') ? true : false
                     wiki.update(updatedWiki, {
                       fields: Object.keys(updatedWiki)
                     })
-                    .then(() => {
+                    .then((wiki) => {
                       callback(null, wiki);
                     })
                     .catch((err) => {
@@ -91,5 +90,20 @@ module.exports = {
                   }
                 });
 
-              }
-          }
+              },
+              makePrivate(id){
+              return Wiki.all()
+              .then((wikis) => {
+                wikis.forEach((wiki) => {
+                  if(wiki.userId == id && wiki.private == true) {
+                    wiki.update({
+                      private: false
+                    })
+                  }
+                })
+              })
+    .catch((err) => {
+      console.log(err);
+    })
+    }
+  };

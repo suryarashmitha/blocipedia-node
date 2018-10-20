@@ -1,5 +1,5 @@
 const wikiQueries = require("../db/queries.wikis.js");
-const Authorizer = require("../policies/wiki");
+const Authorizer = require("../policies/application");
 
 module.exports = {
 
@@ -13,6 +13,15 @@ module.exports = {
             }
         })
     },
+    private(req, res, next){
+    wikiQueries.getAllWikis((err, wikis) => {
+      if(err){
+        res.redirect(500, 'static/index');
+      } else {
+        res.render('wikis/private', {wikis});
+      }
+    })
+  },
 
     new(req, res, next){
       const authorized = new Authorizer(req.user).new();
@@ -87,11 +96,9 @@ module.exports = {
     },
 
     update(req, res, next){
-
-        wikiQueries.updateWiki(req.params.id, req.body, (err, wiki) => {
-
+        wikiQueries.updateWiki(req, req.body, (err, wiki) => {
             if(err || wiki == null){
-                 es.redirect(404, `/wikis/${req.params.id}/edit`);
+                 res.redirect(404, `/wikis/${req.params.id}/edit`);
             } else {
                 res.redirect(`/wikis/${wiki.id}`);
             }
