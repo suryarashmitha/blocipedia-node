@@ -11,9 +11,9 @@
 
       <section  class="container show-wiki-container">
           <div class="panel panel-default panel-wikis-show">
-              <h1 class="panel-heading"><%= wiki.title %></h1>
+              <h1 class="panel-heading"><%- wiki.title %></h1>
               <p><%= wiki.userId %></p>
-              <p class="panel-body"><%= wiki.body %></p>
+              <p class="panel-body"><%- wiki.body %></p>
           </div>
           <% if(wiki.private) { %>
         <p>This wiki is private. Only Premium members may edit private wikis.</p>

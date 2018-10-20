@@ -19,13 +19,13 @@
             <% if(currentUser) { %>
               <% if(currentUser.hasPremium() || currentUser.isAdmin()) { %>
                 <li class="list-group-item">
-                  <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+                  <a href="/wikis/<%= wiki.id %>"> <%- wiki.title %> </a>
                 </li>
               <% } %>
             <% } %>
           <% } else { %>
             <li class="list-group-item">
-              <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+              <a href="/wikis/<%= wiki.id %>"> <%- wiki.title %> </a>
             </li>
           <% } %>
         <% }) %>
